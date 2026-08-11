@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025년 교통사고 현황 및 위험도 분석 보고서</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- Home Link Button -->
+                <a href="../index.html" class="flex items-center gap-2 text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors border border-slate-700 mr-2" title="메인 홈으로 이동">
+                    <i data-lucide="home" class="w-4 h-4 text-indigo-400"></i>
+                    <span>홈</span>
+                </a>
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="shield-alert" class="w-6 h-6 text-red-500"></i>
+                    <span class="text-lg sm:text-xl font-bold tracking-tight">2025 교통안전 분석 포털</span>
+                </div>
+            </div>
+            <div class="text-xs sm:text-sm text-slate-400 flex items-center gap-2">
+                <i data-lucide="calendar" class="w-4 h-4"></i>
+                <span>2025년 종합 연례보고서</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Title & Subtitle -->
+        <div class="border-b border-slate-200 pb-5">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                        2025년 교통사고 총괄 현황 및 위험도 분석
+                    </h1>
+                    <p class="mt-2 text-sm sm:text-base text-slate-600">
+                        시간대 및 요일별 패턴 분석을 통한 맞춤형 교통안전 대책 수립 보고서
+                    </p>
+                </div>
+                <div class="inline-flex items-center gap-2 bg-red-50 text-red-700 px-3 py-1.5 rounded-full text-xs font-semibold border border-red-200 self-start md:self-center">
+                    <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                    집중 주의 요망: 금요일 16시~18시
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. 총괄 현황 카드 (KPI Widgets) -->
+        <section>
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <i data-lucide="activity" class="w-5 h-5 text-indigo-600"></i>
+                1. 2025년 교통사고 총괄 현황
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Total Accidents -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">총 사고 건수</p>
+                            <h3 class="text-3xl font-black text-slate-900 mt-2">7,945 <span class="text-lg font-normal text-slate-500">건</span></h3>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+                            <i data-lucide="car" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+                        일평균 약 <span class="font-bold text-slate-700">21.7건</span> 발생
+                    </div>
+                </div>
+
+                <!-- Total Deaths -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">총 사망자 수</p>
+                            <h3 class="text-3xl font-black text-red-600 mt-2">106 <span class="text-lg font-normal text-slate-500">명</span></h3>
+                        </div>
+                        <div class="w-12 h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center">
+                            <i data-lucide="user-x" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+                        사고 100건당 사망률 약 <span class="font-bold text-red-600">1.33%</span>
+                    </div>
+                </div>
+
+                <!-- Total Injured -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">총 부상자 수</p>
+                            <h3 class="text-3xl font-black text-amber-600 mt-2">8,197 <span class="text-lg font-normal text-slate-500">명</span></h3>
+                        </div>
+                        <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center">
+                            <i data-lucide="cross" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+                        사고 당 부상자 수 평균 <span class="font-bold text-slate-700">1.03명</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 시간대별 위험도 분석 -->
+        <section class="space-y-6">
+            <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                <i data-lucide="clock" class="w-5 h-5 text-indigo-600"></i>
+                2. 시간대별 위험도 분석: '최다 발생' vs '최고 치명도'
+            </h2>
+
+            <!-- Video Section (data2.mp4) Above Key Insights -->
+            <div class="bg-slate-900 rounded-2xl p-4 border border-slate-800 shadow-md overflow-hidden">
+                <div class="flex items-center gap-2 text-slate-300 text-xs font-semibold mb-3 px-1">
+                    <i data-lucide="video" class="w-4 h-4 text-indigo-400"></i>
+                    <span>관련 데이터 영상 분석 (data2.mp4)</span>
+                </div>
+                <div class="relative w-full rounded-xl overflow-hidden bg-black aspect-video max-h-[420px] flex items-center justify-center">
+                    <video controls autoplay loop muted class="w-full h-full object-contain">
+                        <source src="data2.mp4" type="video/mp4">
+                        브라우저가 동영상 재생을 지원하지 않습니다.
+                    </video>
+                </div>
+            </div>
+
+            <!-- Key Insight Callout Grid (Headline Insights) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Highlight 1: Most Frequent -->
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200/70 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 opacity-10 text-amber-900">
+                        <i data-lucide="trending-up" class="w-32 h-32"></i>
+                    </div>
+                    <div class="flex items-center gap-2 text-amber-800 font-bold text-sm mb-2">
+                        <span class="bg-amber-500 text-white text-xs px-2 py-0.5 rounded">최다 발생</span>
+                        16시 ~ 18시 (퇴근 시간대)
+                    </div>
+                    <p class="text-slate-700 text-sm leading-relaxed mt-2">
+                        하루 중 가장 많은 <strong class="text-amber-900 font-extrabold">1,326건 (전체의 16.7%)</strong>의 사고 발생. 사망자 또한 <strong class="text-red-600 font-bold">16명</strong>으로 공동 1위 기록. 퇴근길 교통량 급증이 주요 원인.
+                    </p>
+                </div>
+
+                <!-- Highlight 2: Highest Fatality Rate -->
+                <div class="bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-6 border border-red-200/70 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 opacity-10 text-red-900">
+                        <i data-lucide="alert-triangle" class="w-32 h-32"></i>
+                    </div>
+                    <div class="flex items-center gap-2 text-red-800 font-bold text-sm mb-2">
+                        <span class="bg-red-600 text-white text-xs px-2 py-0.5 rounded">고위험 치명</span>
+                        06시 ~ 08시 (출근 시간대)
+                    </div>
+                    <p class="text-slate-700 text-sm leading-relaxed mt-2">
+                        사고 건수는 <strong class="text-slate-800">557건</strong>으로 오후의 절반 이하 수준이나, 사망자 수는 <strong class="text-red-600 font-bold">16명</strong>으로 동일. 치명율(사고 대비 사망 비율)이 압도적으로 높음.
+                    </p>
+                </div>
+
+                <!-- Highlight 3: Lowest Incident -->
+                <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-200/70 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 opacity-10 text-emerald-900">
+                        <i data-lucide="moon" class="w-32 h-32"></i>
+                    </div>
+                    <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm mb-2">
+                        <span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded">최저 사고</span>
+                        02시 ~ 04시 (새벽 시간대)
+                    </div>
+                    <p class="text-slate-700 text-sm leading-relaxed mt-2">
+                        사고 발생은 <strong class="text-emerald-900 font-bold">52건</strong>으로 하루 중 가장 적음 (부상자 51명). 통행량 감소에 따른 단순 발생 건수 감소 효과.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Time Chart Container -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-2 mb-4">
+                    <div>
+                        <h3 class="font-bold text-slate-800">시간대별 사고 건수 및 사망자 수 추이</h3>
+                        <p class="text-xs text-slate-500">사고 건수(막대)와 사망자 수(선) 비교 그래프</p>
+                    </div>
+                    <div class="flex items-center gap-4 text-xs">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 bg-indigo-500 rounded-sm inline-block"></span>
+                            <span class="text-slate-600">사고 건수</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 bg-red-500 rounded-full inline-block"></span>
+                            <span class="text-slate-600">사망자 수</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-80 w-full">
+                    <canvas id="timeChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 요일별 발생 패턴 분석 -->
+        <section class="space-y-6">
+            <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                <i data-lucide="calendar-days" class="w-5 h-5 text-indigo-600"></i>
+                3. 요일별 발생 패턴 분석
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Day Chart Container -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+                        <div>
+                            <h3 class="font-bold text-slate-800">요일별 사고 건수 및 사망자 분포</h3>
+                            <p class="text-xs text-slate-500">주중/주말에 따른 교통사고 특성 비교</p>
+                        </div>
+                    </div>
+                    <div class="h-72 w-full">
+                        <canvas id="dayChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Day Pattern Detail Cards -->
+                <div class="space-y-4 flex flex-col justify-between">
+                    <!-- Friday -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+                        <div class="p-3 bg-amber-100 text-amber-800 font-extrabold text-base rounded-xl">
+                            금
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">사고 최다 요일 (금요일)</h4>
+                            <p class="text-xs text-slate-600 mt-1">
+                                총 <strong class="text-amber-700">1,292건</strong>으로 주중 최다. 특히 <span class="bg-amber-50 font-semibold text-amber-800 px-1 rounded">16시~18시 사이에만 237건</span> 발생(단일 시간대 최대).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tuesday -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+                        <div class="p-3 bg-red-100 text-red-800 font-extrabold text-base rounded-xl">
+                            화
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">사망자 최다 요일 (화요일)</h4>
+                            <p class="text-xs text-slate-600 mt-1">
+                                사고 건수(1,178건)는 금요일보다 적으나, 사망자는 <strong class="text-red-600">21명</strong>으로 최고치 기록. 대형 사고 비중 높음.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Sunday -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+                        <div class="p-3 bg-blue-100 text-blue-800 font-extrabold text-base rounded-xl">
+                            일
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">가장 안전한 요일 (일요일)</h4>
+                            <p class="text-xs text-slate-600 mt-1">
+                                사고 건수(<strong class="text-blue-700">854건</strong>) 및 사망자 수(<strong class="text-blue-700">10명</strong>) 모두 일주일 중 최소로 가장 안전함.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 종합 인사이트 및 제언 -->
+        <section class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl">
+            <div class="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
+                <div class="p-2 bg-indigo-500/20 text-indigo-400 rounded-lg">
+                    <i data-lucide="lightbulb" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold">4. 종합 인사이트 및 정책 제언</h2>
+                    <p class="text-xs text-slate-400">데이터 기반 교통 안전 관리 정책 수립 가이드</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Action 1 -->
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 hover:border-slate-600 transition-colors">
+                    <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm mb-4">
+                        1
+                    </div>
+                    <h3 class="font-bold text-base text-slate-100 mb-2">금요일 오후 교통 관리 집중 강화</h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        일주일 중 사고 빈도가 가장 높게 집중되는 <strong class="text-amber-300">금요일 16시~18시</strong> 시간대에 주요 정체 구간을 중심으로 현장 교통 경찰배치 및 신호 주기 최적화 등 집중 단속·지도가 시급합니다.
+                    </p>
+                </div>
+
+                <!-- Action 2 -->
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 hover:border-slate-600 transition-colors">
+                    <div class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-sm mb-4">
+                        2
+                    </div>
+                    <h3 class="font-bold text-base text-slate-100 mb-2">화요일 및 출근 시간대 대형 사고 정밀 원인 조사</h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        사망자 비율이 유독 높은 <strong class="text-red-300">화요일</strong> 및 <strong class="text-red-300">오전 06시~08시</strong>에는 과속, 졸음운전, 신호위반 등 고위험 치명 사고 유발 요인에 대한 세부조사와 함께 구간 단속 카메라 설치 확대가 요구됩니다.
+                    </p>
+                </div>
+
+                <!-- Action 3 -->
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 hover:border-slate-600 transition-colors">
+                    <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-sm mb-4">
+                        3
+                    </div>
+                    <h3 class="font-bold text-base text-slate-100 mb-2">주말 낮 시간대 맞춤형 단속 시프트</h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        토요일과 일요일은 전체 사고 건수는 감소하나, <strong class="text-indigo-300">12시~16시 낮 시간대</strong> 나들이 차량 증가에 따른 사고가 집중되는 경향을 보이므로 이 시간대 순찰 및 캠페인을 강화해야 합니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-100 border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500">
+        <p>2025년 교통사고 통계 분석 시스템 | Data Source: Traffic Safety Analysis Summary</p>
+    </footer>
+
+    <!-- Lucide Icons Initialization -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Chart.js Scripts -->
+    <script>
+        // Global Chart Options Defaults
+        Chart.defaults.font.family = 'Pretendard, sans-serif';
+        Chart.defaults.color = '#64748b';
+
+        // 1. Time Chart (Hour Range)
+        const ctxTime = document.getElementById('timeChart').getContext('2d');
+        new Chart(ctxTime, {
+            type: 'bar',
+            data: {
+                labels: ['00-02시', '02-04시', '04-06시', '06-08시', '08-10시', '10-12시', '12-14시', '14-16시', '16-18시', '18-20시', '20-22시', '22-24시'],
+                datasets: [
+                    {
+                        label: '사망자 수 (명)',
+                        data: [5, 2, 8, 16, 9, 7, 8, 11, 16, 11, 8, 5],
+                        type: 'line',
+                        borderColor: '#ef4444',
+                        backgroundColor: '#ef4444',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#ef4444',
+                        pointRadius: 4,
+                        yAxisID: 'y1',
+                        tension: 0.3
+                    },
+                    {
+                        label: '사고 건수 (건)',
+                        data: [180, 52, 210, 557, 850, 720, 890, 1100, 1326, 980, 650, 430],
+                        backgroundColor: function(context) {
+                            const index = context.dataIndex;
+                            return index === 8 ? '#f59e0b' : (index === 3 ? '#f87171' : '#6366f1');
+                        },
+                        borderRadius: 6,
+                        yAxisID: 'y'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: { display: true, text: '사고 건수 (건)' },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: { display: true, text: '사망자 수 (명)' },
+                        grid: { display: false },
+                        min: 0,
+                        max: 20
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+
+        // 2. Day Chart (Day of Week)
+        const ctxDay = document.getElementById('dayChart').getContext('2d');
+        new Chart(ctxDay, {
+            type: 'bar',
+            data: {
+                labels: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+                datasets: [
+                    {
+                        label: '사고 건수 (건)',
+                        data: [1120, 1178, 1150, 1180, 1292, 1171, 854],
+                        backgroundColor: function(context) {
+                            const index = context.dataIndex;
+                            if (index === 4) return '#f59e0b';
+                            if (index === 1) return '#ef4444';
+                            if (index === 6) return '#3b82f6';
+                            return '#94a3b8';
+                        },
+                        borderRadius: 6
+                    },
+                    {
+                        label: '사망자 수 (명)',
+                        data: [14, 21, 15, 16, 18, 12, 10],
+                        type: 'line',
+                        borderColor: '#dc2626',
+                        backgroundColor: '#dc2626',
+                        borderWidth: 2,
+                        pointRadius: 4,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: { display: true, text: '사고 건수 (건)' },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: { display: true, text: '사망자 수 (명)' },
+                        grid: { display: false },
+                        min: 0,
+                        max: 25
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
